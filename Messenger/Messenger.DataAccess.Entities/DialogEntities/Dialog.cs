@@ -13,8 +13,8 @@ namespace Messenger.DataAccess.Entities.DialogEntities
         }
 
         public string ID { get; set; }
-        public int FirstUserID { get; set; }
-        public int SecondUserID { get; set; }
+        public string FirstUserID { get; set; }
+        public string SecondUserID { get; set; }
 
         public virtual User FirstUser { get; set; }
         public virtual User SecondUser { get; set; }
