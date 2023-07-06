@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.32802.440
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Messenger", "Messenger\Messenger.csproj", "{12B1C566-7265-4301-98AB-E9FDDB452C51}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Messenger", "Messenger\Messenger.csproj", "{12B1C566-7265-4301-98AB-E9FDDB452C51}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Messenger.DataAccess.Entities", "Messenger.DataAcces.Entities\Messenger.DataAccess.Entities.csproj", "{AF1A4D9F-9631-4B83-84B8-9C583AC54CBF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Messenger.DataAccess.Entities", "Messenger.DataAccess.Entities\Messenger.DataAccess.Entities.csproj", "{9045C7FA-57D5-4485-8C76-6E45F16ADBA9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{12B1C566-7265-4301-98AB-E9FDDB452C51}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{12B1C566-7265-4301-98AB-E9FDDB452C51}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{12B1C566-7265-4301-98AB-E9FDDB452C51}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AF1A4D9F-9631-4B83-84B8-9C583AC54CBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AF1A4D9F-9631-4B83-84B8-9C583AC54CBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AF1A4D9F-9631-4B83-84B8-9C583AC54CBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AF1A4D9F-9631-4B83-84B8-9C583AC54CBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9045C7FA-57D5-4485-8C76-6E45F16ADBA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9045C7FA-57D5-4485-8C76-6E45F16ADBA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9045C7FA-57D5-4485-8C76-6E45F16ADBA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9045C7FA-57D5-4485-8C76-6E45F16ADBA9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
