@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Messenger.DataAccess.Entities.UserEntities;
 
 #nullable disable
@@ -12,9 +13,9 @@ namespace Messenger.DataAccess.Entities.DialogEntities
             Messages = new HashSet<Message>();
         }
 
-        public string ID { get; set; }
-        public string FirstUserID { get; set; }
-        public string SecondUserID { get; set; }
+        public Guid ID { get; set; }
+        public Guid FirstUserID { get; set; }
+        public Guid SecondUserID { get; set; }
 
         public virtual User FirstUser { get; set; }
         public virtual User SecondUser { get; set; }

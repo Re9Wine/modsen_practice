@@ -22,7 +22,7 @@ namespace Messenger.DataAccess.Entities
         public virtual DbSet<Message> Messages { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserContact> UserContacts { get; set; }
-        public virtual DbSet<UsersInConversation> UsersInConversation { get; set; }
+        public virtual DbSet<UsersInConversation> UsersInConversations { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -36,8 +36,8 @@ namespace Messenger.DataAccess.Entities
         {
             modelBuilder.HasAnnotation("Relational:Collation", "Cyrillic_General_CI_AS");
 
-            modelBuilder.DialogModelCreating();
             modelBuilder.UserModelCreating();
+            modelBuilder.DialogModelCreating();
 
             OnModelCreatingPartial(modelBuilder);
         }

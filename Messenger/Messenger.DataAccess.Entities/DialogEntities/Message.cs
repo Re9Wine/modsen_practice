@@ -7,9 +7,9 @@ namespace Messenger.DataAccess.Entities.DialogEntities
 {
     public partial class Message
     {
-        public string ID { get; set; }
-        public string DialogID { get; set; }
-        public string SenderID { get; set; }
+        public Guid ID { get; set; }
+        public Guid DialogID { get; set; }
+        public Guid SenderID { get; set; }
         public DateTime SendingDate { get; set; }
         public string Text { get; set; }
 

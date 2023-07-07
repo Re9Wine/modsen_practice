@@ -9,16 +9,16 @@ namespace Messenger.DataAccess.Entities.UserEntities
         {
             modelBuilder.Entity<User>(entity =>
             {
+                entity.ToTable("User");
+
                 entity.Property(e => e.ID)
-                    .HasMaxLength(200)
-                    .IsUnicode(false)
-                    .HasColumnName("ID");
+                    .ValueGeneratedNever();
 
                 entity.HasIndex(e => e.Username, "UQ__User__536C85E4FA2452F0")
                     .IsUnique();
 
-                entity.Property(e => e.PhoneNumber)
-                    .ValueGeneratedNever();
+                entity.HasIndex(e => e.PhoneNumber, "UQ__User__XD")
+                    .IsUnique();
 
                 entity.Property(e => e.AboutSelf)
                     .HasMaxLength(100)
@@ -42,16 +42,14 @@ namespace Messenger.DataAccess.Entities.UserEntities
 
             modelBuilder.Entity<UserContact>(entity =>
             {
+                entity.ToTable("UserContact");
+
                 entity.HasKey(e => new { e.UserID, e.ContactID });
 
                 entity.Property(e => e.UserID)
-                    .HasMaxLength(200)
-                    .IsUnicode(false)
                     .HasColumnName("UserID");
 
                 entity.Property(e => e.ContactID)
-                    .HasMaxLength(200)
-                    .IsUnicode(false)
                     .HasColumnName("ContactID");
 
                 entity.Property(e => e.ContactName)
@@ -59,13 +57,13 @@ namespace Messenger.DataAccess.Entities.UserEntities
                     .IsUnicode(false);
 
                 entity.HasOne(d => d.ContactUser)
-                    .WithMany(p => p.UserContacts)
+                    .WithMany(p => p.UserContacts) // TODO mb change name, ask mentor
                     .HasForeignKey(d => d.ContactID)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_UserContacts_User1");
+                    .HasConstraintName("FK_UserContacts_Contact");
 
                 entity.HasOne(d => d.User)
-                    .WithMany(p => p.UserContacts)
+                    .WithMany(p => p.UserInContacts) // TODO mb change name, ask mentor
                     .HasForeignKey(d => d.UserID)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_UserContacts_User");

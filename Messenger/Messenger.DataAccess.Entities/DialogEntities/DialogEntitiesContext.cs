@@ -12,8 +12,7 @@ namespace Messenger.DataAccess.Entities.DialogEntities
                 entity.ToTable("Conversation");
 
                 entity.Property(e => e.ID)
-                    .HasMaxLength(200)
-                    .IsUnicode(false)
+                    .ValueGeneratedNever()
                     .HasColumnName("ID");
 
                 entity.Property(e => e.Name)
@@ -27,33 +26,28 @@ namespace Messenger.DataAccess.Entities.DialogEntities
                 entity.ToTable("Dialog");
 
                 entity.Property(e => e.ID)
-                    .HasMaxLength(200)
-                    .IsUnicode(false)
+                    .ValueGeneratedNever()
                     .HasColumnName("ID");
 
                 entity.Property(e => e.FirstUserID)
                     .IsRequired()
-                    .HasMaxLength(200)
-                    .IsUnicode(false)
                     .HasColumnName("FirstUserID");
 
                 entity.Property(e => e.SecondUserID)
                     .IsRequired()
-                    .HasMaxLength(200)
-                    .IsUnicode(false)
                     .HasColumnName("SecondUserID");
 
                 entity.HasOne(d => d.FirstUser)
-                    .WithMany(p => p.Dialogs)
+                    .WithMany(p => p.FirstUsersInDialogs) // TODO mb change name, ask mentor
                     .HasForeignKey(d => d.FirstUserID)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Dialog_User");
+                    .HasConstraintName("FK_Dialog_FirstUser");
 
                 entity.HasOne(d => d.SecondUser)
-                    .WithMany(p => p.Dialogs)
+                    .WithMany(p => p.SecondUsersInDialogs) // TODO mb change name, ask mentor
                     .HasForeignKey(d => d.SecondUserID)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Dialog_User1");
+                    .HasConstraintName("FK_Dialog_SecondUser");
             });
 
             modelBuilder.Entity<Message>(entity =>
@@ -61,20 +55,15 @@ namespace Messenger.DataAccess.Entities.DialogEntities
                 entity.ToTable("Message");
 
                 entity.Property(e => e.ID)
-                    .HasMaxLength(200)
-                    .IsUnicode(false)
+                    .ValueGeneratedNever()
                     .HasColumnName("ID");
 
                 entity.Property(e => e.DialogID)
                     .IsRequired()
-                    .HasMaxLength(200)
-                    .IsUnicode(false)
                     .HasColumnName("DialogID");
 
                 entity.Property(e => e.SenderID)
                     .IsRequired()
-                    .HasMaxLength(200)
-                    .IsUnicode(false)
                     .HasColumnName("SenderID");
 
                 entity.Property(e => e.SendingDate).HasColumnType("datetime");
@@ -105,18 +94,16 @@ namespace Messenger.DataAccess.Entities.DialogEntities
 
             modelBuilder.Entity<UsersInConversation>(entity =>
             {
+                entity.ToTable("UsersInConversation");
+
                 entity.HasKey(e => new { e.ConversationID, e.UserID });
 
                 entity.ToTable("UsersInConversation");
 
                 entity.Property(e => e.ConversationID)
-                    .HasMaxLength(200)
-                    .IsUnicode(false)
                     .HasColumnName("ConversationID");
 
                 entity.Property(e => e.UserID)
-                    .HasMaxLength(200)
-                    .IsUnicode(false)
                     .HasColumnName("UserID");
 
                 entity.HasOne(d => d.Conversation)

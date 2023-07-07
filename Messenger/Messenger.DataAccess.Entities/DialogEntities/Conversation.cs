@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 #nullable disable
 
@@ -12,7 +13,7 @@ namespace Messenger.DataAccess.Entities.DialogEntities
             UsersInConversation = new HashSet<UsersInConversation>();
         }
 
-        public string ID { get; set; }
+        public Guid ID { get; set; }
         public string Name { get; set; }
 
         public virtual ICollection<Message> Messages { get; set; }
