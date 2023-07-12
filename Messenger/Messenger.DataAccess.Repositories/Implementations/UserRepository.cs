@@ -3,6 +3,7 @@ using Messenger.DataAccess.Entities.UserEntities;
 using Messenger.DataAccess.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Messenger.DataAccess.Repositories.Implementations
@@ -14,6 +15,11 @@ namespace Messenger.DataAccess.Repositories.Implementations
         public UserRepository(MessengerContext context)
         {
             _context = context;
+        }
+
+        public Task<List<User>> GetAll()
+        {
+            return _context.Users.ToListAsync();
         }
 
         public Task<bool> CreateAsync(User user)
