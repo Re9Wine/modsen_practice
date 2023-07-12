@@ -4,6 +4,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Messenger.Services.Options;
 
 namespace Messenger
 {
@@ -18,6 +20,21 @@ namespace Messenger
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.RequireHttpsMetadata = true;
+                    options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidIssuer = AuthenticationOptions.ISSUER,
+                        ValidateAudience = true,
+                        ValidAudience = AuthenticationOptions.AUDIENCE,
+                        ValidateLifetime = true,
+                        IssuerSigningKey = AuthenticationOptions.GetSymmetricSecurityKey(),
+                        ValidateIssuerSigningKey = true,
+                    };
+                });
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -39,6 +56,7 @@ namespace Messenger
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
