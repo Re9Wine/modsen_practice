@@ -17,50 +17,57 @@ namespace Messenger.DataAccess.Repositories.Implementations
             _context = context;
         }
 
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+        public async Task<bool> CreateAsync(User entity)
+=======
+>>>>>>> Stashed changes
         public Task<List<User>> GetAll()
         {
             return _context.Users.ToListAsync();
         }
 
         public Task<bool> CreateAsync(User user)
+>>>>>>> 6eec7830399cdc6f3d416e63ea5a57dbd93f612a
         {
-            if (user == null)
+            if(entity == null)
             {
-                return Task.FromResult(false);
+                return false;
             }
 
-            _context.Users.Add(user);
+            await _context.Users.AddAsync(entity);
 
-            return Task.FromResult(_context.SaveChangesAsync().Result != 0);
+            return (await _context.SaveChangesAsync()) != 0;
         }
 
-        public Task<bool> DeleteAsync(User user)
+        public async Task<bool> DeleteAsync(User entity)
         {
-            if (user == null)
+            if (entity == null)
             {
-                return Task.FromResult(false);
+                return false;
             }
 
-            _context.Users.Remove(user);
+            _context.Users.Remove(entity);
 
-            return Task.FromResult(_context.SaveChangesAsync().Result != 0);
+            return (await _context.SaveChangesAsync()) != 0;
         }
 
-        public Task<User> GetByIdAsync(Guid id)
+        public async Task<User> GetByIdAsync(Guid id)
         {
-            return _context.Users.FirstOrDefaultAsync(x => x.ID == id);
+            return await _context.Users.FirstOrDefaultAsync(x => x.ID == id);
         }
 
-        public Task<bool> UpdateAsync(User user)
+        public async Task<bool> UpdateAsync(User entity)
         {
-            if (user == null)
+            if (entity == null)
             {
-                return Task.FromResult(false);
+                return false;
             }
 
-            _context.Users.Update(user);
+            _context.Users.Update(entity);
 
-            return Task.FromResult(_context.SaveChangesAsync().Result != 0);
+            return (await _context.SaveChangesAsync()) != 0;
         }
     }
 }
