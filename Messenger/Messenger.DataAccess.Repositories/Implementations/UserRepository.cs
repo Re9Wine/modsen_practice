@@ -17,19 +17,12 @@ namespace Messenger.DataAccess.Repositories.Implementations
             _context = context;
         }
 
-<<<<<<< Updated upstream
-=======
-<<<<<<< HEAD
-        public async Task<bool> CreateAsync(User entity)
-=======
->>>>>>> Stashed changes
-        public Task<List<User>> GetAll()
+        public async Task<List<User>> GetAll()
         {
-            return _context.Users.ToListAsync();
+            return await _context.Users.ToListAsync();
         }
 
-        public Task<bool> CreateAsync(User user)
->>>>>>> 6eec7830399cdc6f3d416e63ea5a57dbd93f612a
+        public async Task<bool> CreateAsync(User entity)
         {
             if(entity == null)
             {
