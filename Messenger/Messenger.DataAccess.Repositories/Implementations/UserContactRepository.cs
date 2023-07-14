@@ -16,45 +16,45 @@ namespace Messenger.DataAccess.Repositories.Implementations
             _context = context;
         }
 
-        public Task<bool> CreateAsync(UserContact userContact)
+        public async Task<bool> CreateAsync(UserContact entity)
         {
-            if (userContact == null)
+            if (entity == null)
             {
-                return Task.FromResult(false);
+                return false;
             }
 
-            _context.UserContacts.Add(userContact);
+            await _context.UserContacts.AddAsync(entity);
 
-            return Task.FromResult(_context.SaveChangesAsync().Result != 0);
+            return (await _context.SaveChangesAsync()) != 0;
         }
 
-        public Task<bool> DeleteAsync(UserContact userContact)
+        public async Task<bool> DeleteAsync(UserContact entity)
         {
-            if (userContact == null)
+            if (entity == null)
             {
-                return Task.FromResult(false);
+                return false;
             }
 
-            _context.UserContacts.Remove(userContact);
+            _context.UserContacts.Remove(entity);
 
-            return Task.FromResult(_context.SaveChangesAsync().Result != 0);
+            return (await _context.SaveChangesAsync()) != 0;
         }
 
-        public Task<UserContact> GetByIdAsync(Guid userID, Guid contactID)
+        public async Task<UserContact> GetByIdAsync(Guid userID, Guid contactID)
         {
-            return _context.UserContacts.FirstOrDefaultAsync(x => x.UserID == userID && x.ContactID == contactID);
+            return await _context.UserContacts.FirstOrDefaultAsync(x => x.UserID == userID && x.ContactID == contactID);
         }
 
-        public Task<bool> UpdateAsync(UserContact userContact)
+        public async Task<bool> UpdateAsync(UserContact entity)
         {
-            if (userContact == null)
+            if (entity == null)
             {
-                return Task.FromResult(false);
+                return false;
             }
 
-            _context.UserContacts.Update(userContact);
+            _context.UserContacts.Update(entity);
 
-            return Task.FromResult(_context.SaveChangesAsync().Result != 0);
+            return (await _context.SaveChangesAsync()) != 0;
         }
     }
 }

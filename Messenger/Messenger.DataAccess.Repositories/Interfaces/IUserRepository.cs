@@ -5,12 +5,9 @@ using System.Threading.Tasks;
 
 namespace Messenger.DataAccess.Repositories.Interfaces
 {
-    public interface IUserRepository
+    public interface IUserRepository : IBaseRepository<User>
     {
         Task<List<User>> GetAll();
         Task<User> GetByIdAsync(Guid id);
-        Task<bool> CreateAsync(User user);
-        Task<bool> DeleteAsync(User user);
-        Task<bool> UpdateAsync(User user);
     }
 }

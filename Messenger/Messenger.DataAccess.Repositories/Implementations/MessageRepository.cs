@@ -16,45 +16,45 @@ namespace Messenger.DataAccess.Repositories.Implementations
             _context = context;
         }
 
-        public Task<bool> CreateAsync(Message message)
+        public async Task<bool> CreateAsync(Message entity)
         {
-            if (message == null)
+            if (entity == null)
             {
-                return Task.FromResult(false);
+                return false;
             }
 
-            _context.Messages.Add(message);
+            await _context.Messages.AddAsync(entity);
 
-            return Task.FromResult(_context.SaveChangesAsync().Result != 0);
+            return (await _context.SaveChangesAsync()) != 0;
         }
 
-        public Task<bool> DeleteAsync(Message message)
+        public async Task<bool> DeleteAsync(Message entity)
         {
-            if (message == null)
+            if (entity == null)
             {
-                return Task.FromResult(false);
+                return false;
             }
 
-            _context.Messages.Remove(message);
+            _context.Messages.Remove(entity);
 
-            return Task.FromResult(_context.SaveChangesAsync().Result != 0);
+            return (await _context.SaveChangesAsync()) != 0;
         }
 
-        public Task<Message> GetByIdAsync(Guid id)
+        public async Task<Message> GetByIdAsync(Guid id)
         {
-            return _context.Messages.FirstOrDefaultAsync(x => x.ID == id);
+            return await _context.Messages.FirstOrDefaultAsync(x => x.ID == id);
         }
 
-        public Task<bool> UpdateAsync(Message message)
+        public async Task<bool> UpdateAsync(Message entity)
         {
-            if (message == null)
+            if (entity == null)
             {
-                return Task.FromResult(false);
+                return false;
             }
 
-            _context.Messages.Update(message);
+            _context.Messages.Update(entity);
 
-            return Task.FromResult(_context.SaveChangesAsync().Result != 0);
+            return (await _context.SaveChangesAsync()) != 0;
         }
     }
 }

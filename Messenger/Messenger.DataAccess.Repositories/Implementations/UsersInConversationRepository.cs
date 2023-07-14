@@ -16,45 +16,46 @@ namespace Messenger.DataAccess.Repositories.Implementations
             _context = context;
         }
 
-        public Task<bool> CreateAsync(UsersInConversation usersInConversation)
+        public async Task<bool> CreateAsync(UsersInConversation entity)
         {
-            if (usersInConversation == null)
+            if (entity == null)
             {
-                return Task.FromResult(false);
+                return false;
             }
 
-            _context.UsersInConversations.Add(usersInConversation);
+            await _context.UsersInConversations.AddAsync(entity);
 
-            return Task.FromResult(_context.SaveChangesAsync().Result != 0);
+            return (await _context.SaveChangesAsync()) != 0;
         }
 
-        public Task<bool> DeleteAsync(UsersInConversation usersInConversation)
+        public async Task<bool> DeleteAsync(UsersInConversation entity)
         {
-            if (usersInConversation == null)
+            if (entity == null)
             {
-                return Task.FromResult(false);
+                return false;
             }
 
-            _context.UsersInConversations.Remove(usersInConversation);
+            _context.UsersInConversations.Remove(entity);
 
-            return Task.FromResult(_context.SaveChangesAsync().Result != 0);
+            return (await _context.SaveChangesAsync()) != 0;
         }
 
-        public Task<UsersInConversation> GetByIdAsync(Guid conversationID, Guid userID)
+        public async Task<UsersInConversation> GetByIdAsync(Guid conversationID, Guid userID)
         {
-            return _context.UsersInConversations.FirstOrDefaultAsync(x => x.UserID == userID && x.ConversationID == conversationID);
+            return await _context.UsersInConversations.FirstOrDefaultAsync(x => 
+                x.ConversationID == conversationID && x.UserID == userID);
         }
 
-        public Task<bool> UpdateAsync(UsersInConversation usersInConversation)
+        public async Task<bool> UpdateAsync(UsersInConversation entity)
         {
-            if (usersInConversation == null)
+            if (entity == null)
             {
-                return Task.FromResult(false);
+                return false;
             }
 
-            _context.UsersInConversations.Update(usersInConversation);
+            _context.UsersInConversations.Update(entity);
 
-            return Task.FromResult(_context.SaveChangesAsync().Result != 0);
+            return (await _context.SaveChangesAsync()) != 0;
         }
     }
 }

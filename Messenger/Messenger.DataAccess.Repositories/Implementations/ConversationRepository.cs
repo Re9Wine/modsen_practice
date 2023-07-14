@@ -16,45 +16,45 @@ namespace Messenger.DataAccess.Repositories.Implementations
             _context = context;
         }
 
-        public Task<bool> CreateAsync(Conversation conversation)
+        public async Task<bool> CreateAsync(Conversation entity)
         {
-            if (conversation == null)
+            if (entity == null)
             {
-                return Task.FromResult(false);
+                return false;
             }
 
-            _context.Conversations.Add(conversation);
+            await _context.Conversations.AddAsync(entity);
 
-            return Task.FromResult(true);
+            return (await _context.SaveChangesAsync()) != 0;
         }
 
-        public Task<bool> DeleteAsync(Conversation conversation)
+        public async Task<bool> DeleteAsync(Conversation entity)
         {
-            if (conversation == null)
+            if (entity == null)
             {
-                return Task.FromResult(false);
+                return false;
             }
 
-            _context.Conversations.Remove(conversation);
+            _context.Conversations.Remove(entity);
 
-            return Task.FromResult(true);
+            return (await _context.SaveChangesAsync()) != 0;
         }
 
-        public Task<Conversation> GetByIdAsync(Guid id)
+        public async Task<Conversation> GetByIdAsync(Guid id)
         {
-            return _context.Conversations.FirstOrDefaultAsync(x => x.ID == id);
+            return await _context.Conversations.FirstOrDefaultAsync(x => x.ID == id);
         }
 
-        public Task<bool> UpdateAsync(Conversation conversation)
+        public async Task<bool> UpdateAsync(Conversation entity)
         {
-            if (conversation == null)
+            if (entity == null)
             {
-                return Task.FromResult(false);
+                return false;
             }
 
-            _context.Conversations.Update(conversation);
+            _context.Conversations.Update(entity);
 
-            return Task.FromResult(true);
+            return (await _context.SaveChangesAsync()) != 0;
         }
     }
 }

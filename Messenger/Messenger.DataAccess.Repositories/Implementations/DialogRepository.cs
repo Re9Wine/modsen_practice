@@ -16,45 +16,45 @@ namespace Messenger.DataAccess.Repositories.Implementations
             _context = context;
         }
 
-        public Task<bool> CreateAsync(Dialog dialog)
+        public async Task<bool> CreateAsync(Dialog entity)
         {
-            if (dialog == null)
+            if (entity == null)
             {
-                return Task.FromResult(false);
+                return false;
             }
 
-            _context.Dialogs.Add(dialog);
+            await _context.Dialogs.AddAsync(entity);
 
-            return Task.FromResult(_context.SaveChangesAsync().Result != 0);
+            return (await _context.SaveChangesAsync()) != 0;
         }
 
-        public Task<bool> DeleteAsync(Dialog dialog)
+        public async Task<bool> DeleteAsync(Dialog entity)
         {
-            if (dialog == null)
+            if (entity == null)
             {
-                return Task.FromResult(false);
+                return false;
             }
 
-            _context.Dialogs.Remove(dialog);
+            _context.Dialogs.Remove(entity);
 
-            return Task.FromResult(_context.SaveChangesAsync().Result != 0);
+            return (await _context.SaveChangesAsync()) != 0;
         }
 
-        public Task<Dialog> GetByIdAsync(Guid id)
+        public async Task<Dialog> GetByIdAsync(Guid id)
         {
-            return _context.Dialogs.FirstOrDefaultAsync(x => x.ID == id);
+            return await _context.Dialogs.FirstOrDefaultAsync(x => x.ID == id);
         }
 
-        public Task<bool> UpdateAsync(Dialog dialog)
+        public async Task<bool> UpdateAsync(Dialog entity)
         {
-            if (dialog == null)
+            if (entity == null)
             {
-                return Task.FromResult(false);
+                return false;
             }
 
-            _context.Dialogs.Update(dialog);
+            _context.Dialogs.Update(entity);
 
-            return Task.FromResult(_context.SaveChangesAsync().Result != 0);
+            return (await _context.SaveChangesAsync()) != 0;
         }
     }
 }

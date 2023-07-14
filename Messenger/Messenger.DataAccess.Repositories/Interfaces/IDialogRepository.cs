@@ -4,11 +4,8 @@ using System.Threading.Tasks;
 
 namespace Messenger.DataAccess.Repositories.Interfaces
 {
-    public interface IDialogRepository
+    public interface IDialogRepository : IBaseRepository<Dialog>
     {
         Task<Dialog> GetByIdAsync(Guid id);
-        Task<bool> CreateAsync(Dialog dialog);
-        Task<bool> DeleteAsync(Dialog dialog);
-        Task<bool> UpdateAsync(Dialog dialog);
     }
 }

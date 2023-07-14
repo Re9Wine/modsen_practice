@@ -4,11 +4,8 @@ using System.Threading.Tasks;
 
 namespace Messenger.DataAccess.Repositories.Interfaces
 {
-    public interface IUsersInConversationRepository
+    public interface IUsersInConversationRepository : IBaseRepository<UsersInConversation>
     {
         Task<UsersInConversation> GetByIdAsync(Guid conversationID, Guid userID);
-        Task<bool> CreateAsync(UsersInConversation usersInConversation);
-        Task<bool> DeleteAsync(UsersInConversation usersInConversation);
-        Task<bool> UpdateAsync(UsersInConversation usersInConversation);
     }
 }
