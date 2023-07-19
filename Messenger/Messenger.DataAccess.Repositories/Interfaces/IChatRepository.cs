@@ -4,8 +4,8 @@ using System.Threading.Tasks;
 
 namespace Messenger.DataAccess.Repositories.Interfaces
 {
-    public interface IMessageRepository : IBaseRepository<Message>
+    public interface IChatRepository : IBaseRepository<Chat>
     {
-        Task<Message> GetByIdAsync(Guid id);
+        Task<Chat> GetByIdAsync(Guid id);
     }
 }

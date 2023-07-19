@@ -9,9 +9,9 @@ namespace Messenger.DataAccess.Repositories.Implementations
 {
     public class UserContactRepository : IUserContactRepository
     {
-        private readonly MessengerContext _context;
+        private readonly MessangerDbContext _context;
 
-        public UserContactRepository(MessengerContext context)
+        public UserContactRepository(MessangerDbContext context)
         {
             _context = context;
         }
@@ -23,7 +23,7 @@ namespace Messenger.DataAccess.Repositories.Implementations
                 return false;
             }
 
-            await _context.UserContacts.AddAsync(entity);
+            _context.UserContacts.Add(entity);
 
             return (await _context.SaveChangesAsync()) != 0;
         }
@@ -42,7 +42,8 @@ namespace Messenger.DataAccess.Repositories.Implementations
 
         public async Task<UserContact> GetByIdAsync(Guid userID, Guid contactID)
         {
-            return await _context.UserContacts.FirstOrDefaultAsync(x => x.UserID == userID && x.ContactID == contactID);
+            return await _context.UserContacts.FirstOrDefaultAsync(x =>
+                x.ContactID == contactID && x.UserID == userID);
         }
 
         public async Task<bool> UpdateAsync(UserContact entity)

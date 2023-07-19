@@ -1,64 +1,62 @@
 ﻿using Messenger.DataAccess.Entities;
-using Messenger.DataAccess.Entities.UserEntities;
+using Messenger.DataAccess.Entities.ChatEntities;
 using Messenger.DataAccess.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Messenger.DataAccess.Repositories.Implementations
 {
-    public class UserRepository : IUserRepository
+    public class UserInChatRepository : IUserInChatRepository
     {
         private readonly MessangerDbContext _context;
 
-        public UserRepository(MessangerDbContext context)
+        public UserInChatRepository(MessangerDbContext context)
         {
             _context = context;
         }
 
-        public async Task<bool> CreateAsync(User entity)
+        public async Task<bool> CreateAsync(UserInChat entity)
         {
-            if (entity == null)
+            if(entity == null)
             {
                 return false;
             }
 
-            _context.Users.Add(entity);
+            _context.UsersInChat.Add(entity);
 
             return (await _context.SaveChangesAsync()) != 0;
         }
 
-        public async Task<bool> DeleteAsync(User entity)
+        public async Task<bool> DeleteAsync(UserInChat entity)
         {
             if (entity == null)
             {
                 return false;
             }
 
-            _context.Users.Remove(entity);
+            _context.UsersInChat.Remove(entity);
 
             return (await _context.SaveChangesAsync()) != 0;
         }
 
-        public async Task<List<User>> GetAll()
+        public async Task<UserInChat> GetByIdAsync(Guid chatID, Guid userID)
         {
-            return await _context.Users.ToListAsync();
+            return await _context.UsersInChat.FirstOrDefaultAsync(x =>
+                x.ChatID == chatID && x.UserID == userID);
         }
 
-        public async Task<User> GetByIdAsync(Guid id)
-        {
-            return await _context.Users.FirstOrDefaultAsync(x => x.ID == id);
-        }
-
-        public async Task<bool> UpdateAsync(User entity)
+        public async Task<bool> UpdateAsync(UserInChat entity)
         {
             if (entity == null)
             {
                 return false;
             }
 
-            _context.Users.Update(entity);
+            _context.UsersInChat.Update(entity);
 
             return (await _context.SaveChangesAsync()) != 0;
         }

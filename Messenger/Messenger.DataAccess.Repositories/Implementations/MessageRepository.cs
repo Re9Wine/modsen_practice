@@ -1,5 +1,5 @@
 ﻿using Messenger.DataAccess.Entities;
-using Messenger.DataAccess.Entities.DialogEntities;
+using Messenger.DataAccess.Entities.ChatEntities;
 using Messenger.DataAccess.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -9,9 +9,9 @@ namespace Messenger.DataAccess.Repositories.Implementations
 {
     public class MessageRepository : IMessageRepository
     {
-        private readonly MessengerContext _context;
+        private readonly MessangerDbContext _context;
 
-        public MessageRepository(MessengerContext context)
+        public MessageRepository(MessangerDbContext context)
         {
             _context = context;
         }
@@ -23,7 +23,7 @@ namespace Messenger.DataAccess.Repositories.Implementations
                 return false;
             }
 
-            await _context.Messages.AddAsync(entity);
+            _context.Messages.Add(entity);
 
             return (await _context.SaveChangesAsync()) != 0;
         }
