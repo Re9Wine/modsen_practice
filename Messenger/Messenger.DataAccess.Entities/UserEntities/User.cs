@@ -1,34 +1,46 @@
-﻿using System;
+﻿using Messenger.DataAccess.Entities.ChatEntities;
 using System.Collections.Generic;
-using Messenger.DataAccess.Entities.DialogEntities;
-
-#nullable disable
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Messenger.DataAccess.Entities.UserEntities
 {
-    public partial class User
+    public class User : BaseEntity
     {
         public User()
         {
-            FirstUsersInDialogs = new HashSet<Dialog>();
-            SecondUsersInDialogs = new HashSet<Dialog>();
-            Messages = new HashSet<Message>();
+            UserInContacts = new HashSet<UserContact>();
             UserContacts = new HashSet<UserContact>();
-            Conversations = new HashSet<UsersInConversation>();
+            Messages = new HashSet<Message>();
+            UserInChats = new HashSet<UserInChat>();
         }
 
-        public Guid ID { get; set; }
+        [Required]
+        [Phone]
         public int PhoneNumber { get; set; }
+
+        [Required]
+        [StringLength(50)]
         public string Username { get; set; }
+
+        [Required]
+        [PasswordPropertyText(true)]
+        [StringLength(50)]
         public string Password { get; set; }
+
+        [Required]
+        [StringLength(100)]
+
         public string Name { get; set; }
+
+        [Required]
+        [StringLength(100)]
         public string AboutSelf { get; set; }
 
-        public virtual ICollection<Dialog> FirstUsersInDialogs { get; set; } // TODO mb change name, ask mentor
-        public virtual ICollection<Dialog> SecondUsersInDialogs { get; set; } // TODO mb change name, ask mentor
+
+        public virtual ICollection<UserContact> UserInContacts { get; set; }
+        public virtual ICollection<UserContact> UserContacts { get; set; }
         public virtual ICollection<Message> Messages { get; set; }
-        public virtual ICollection<UserContact> UserInContacts { get; set; } // TODO mb change name, ask mentor
-        public virtual ICollection<UserContact> UserContacts { get; set; } // TODO mb change name, ask mentor
-        public virtual ICollection<UsersInConversation> Conversations { get; set; }
+        public virtual ICollection<UserInChat> UserInChats { get; set; }
     }
 }
