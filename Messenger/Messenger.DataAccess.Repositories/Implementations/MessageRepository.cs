@@ -16,6 +16,11 @@ namespace Messenger.DataAccess.Repositories.Implementations
             _context = context;
         }
 
+        public async Task<List<Message>> GetAll()
+        {
+            return await _context.Messages.ToListAsync();
+        }
+
         public async Task<bool> CreateAsync(Message entity)
         {
             if (entity == null)

@@ -41,30 +41,6 @@ namespace Messenger.Services.Implementations
             return result;
         }
 
-        public Task<string> Authorize(User user)
-        {
-            var identity = GetIdentity(user);
-
-            if (identity == null)
-            {
-                return Task.FromResult("User doesn't exists");
-            }
-
-            var currentTime = DateTime.UtcNow;
-
-            var token = new JwtSecurityToken(
-                issuer: AuthenticationOptions.ISSUER,
-                audience: AuthenticationOptions.AUDIENCE,
-                notBefore: currentTime,
-                claims: identity.Claims,
-                expires: currentTime.AddMinutes(AuthenticationOptions.LIFETIME),
-                signingCredentials: new SigningCredentials(AuthenticationOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
-
-            var encodedToken = new JwtSecurityTokenHandler().WriteToken(token);
-
-            return Task.FromResult(encodedToken);
-        }
-
         public Task<bool> UpdateAsync(User user)
         {
             var result = _repository.UpdateAsync(user);
@@ -77,28 +53,6 @@ namespace Messenger.Services.Implementations
             var result = _repository.DeleteAsync(user);
 
             return result;
-        }
-
-        private ClaimsIdentity GetIdentity(User user)
-        {
-            var userIsExists = _repository.GetAll().Result.Contains(user);
-
-            if (userIsExists)
-            {
-                var claims = new List<Claim>
-                {
-                    new Claim(ClaimsIdentity.DefaultNameClaimType, user.Username),
-                    new Claim(ClaimsIdentity.DefaultRoleClaimType, "user")
-                };
-
-                ClaimsIdentity claimsIdentity = 
-                    new ClaimsIdentity(claims, "Token", 
-                    ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
-
-                return claimsIdentity;
-            }
-
-            return null;
         }
     }
 }
